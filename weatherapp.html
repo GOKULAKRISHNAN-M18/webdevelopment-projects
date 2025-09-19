@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        padding: 0%;
+        margin: 0%;
+    }
+
+    .overall {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background-color: rgb(252, 252, 252);
+        width: 390px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+    }
+
+    .container input {
+        outline: none;
+        border: none;
+        width: 250px;
+        height: 30px;
+        background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+        border-radius: 3px;
+    }
+
+    .container button {
+        border: none;
+        outline: none;
+        width: 80px;
+        height: 25px;
+        background-color: rgb(232, 46, 46);
+        border-radius: 3px;
+        color: white;
+        cursor: pointer;
+    }
+
+    h1 {
+        font-size: 40px;
+        font-family: sans-serif;
+        color: rgb(246, 153, 39);
+        font-weight: 700;
+    }
+
+    input::placeholder {
+        color: rgb(88, 86, 86);
+        font-weight: 600;
+    }
+
+    #result {
+     padding: 5px;
+    
+    }
+</style>
+
+<body>
+    <div class="overall">
+        <div class="container">
+            <h1>weather Predictor</h1>
+            <input type="text" name="text" id="text" placeholder="Search City..."> <br>
+            <button onclick="Search()">Search</button>
+            <div id="result">
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    async function Search() {
+        let WeatherText = document.getElementById("text").value.trim()
+        // let output = document.getElementById("result")
+        let API_KEY = '96eef6100da81a922c44c5404e8c0e11'
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${WeatherText}&appid=${API_KEY}&units=metric`;
+
+
+        try {
+            const response = await fetch(url)
+            const data = await response.json()
+
+            if (data.cod === '404') {
+                document.getElementById('result').innerHTML = 'Not a Valid City'
+            }
+            else if (data.cod !== 200) {
+                document.getElementById('result').innerHTML = `Error : ${data.message}`
+            }
+            else {
+                document.getElementById('result').innerHTML = `<h1>${data.name},${data.sys.country}</h1>
+                    <h4> Temp : ${data.main.temp}</h4>
+                    <h4>Weather : ${data.weather[0].description}</h4>`
+            }
+        }
+        catch(error){
+            document.getElementById('result').innerHTML = `Error : ${data.message}`;
+        }
+    }
+</script>
+
+
+</html>

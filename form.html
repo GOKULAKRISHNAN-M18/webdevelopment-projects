@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+        background: #833AB4;
+        background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(166, 50, 137, 1) 14%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+        background-attachment: fixed;
+        margin: 0%;
+        padding: 0%;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+
+    }
+
+    .form {
+        background-color: aliceblue;
+        padding: 60px;
+        border-radius: 20px;
+    }
+
+    #heading {
+        color: rgb(153, 51, 78);
+        font-size: xx-large;
+        font-weight: 550;
+        padding: 10px;
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .itm {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .itm input {
+        padding: 5px;
+        border: 2px solid rgb(173, 173, 240);
+        height: 22px;
+        border-radius: 10px;
+
+    }
+
+    .itm label {
+        padding: 4px;
+    }
+
+    .btn {
+        margin-top: 30px;
+        width: 100%;
+        height: 30px;
+        background-color: orange;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    .itm input:focus {
+        outline: 0;
+    }
+
+    .itm .error {
+        color: red;
+        font-size: 16px;
+        margin-top: 5px;
+    }
+
+    .itm .btn:focus {
+        outline: 0;
+    }
+
+    .itm .error input {
+        color: red;
+    }
+
+    .itm .success input {
+        color: red;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <form action="" class="form">
+            <h1 id="heading">Register Form</h1>
+            <div class="itm">
+                <label for="username">Username</label>
+                <input type="text" id="name">
+                <div class="error"></div>
+            </div>
+            <div class="itm">
+                <label for="password">password</label>
+                <input type="password" id="password">
+                <div class="error"></div>
+            </div>
+            <div class="itm">
+                <label for="cpassword">conform password</label>
+                <input type="password" id="cpassword">
+                <div class="error"></div>
+            </div>
+            <div class="itm">
+                <label for="email">Email</label>
+                <input type="email" id="email">
+                <div class="error"></div>
+            </div>
+            <button class="btn">Register Now</button>
+
+        </form>
+    </div>
+    <script>
+        //Form script
+        let form = document.querySelector("form")
+        let username = document.getElementById("name");
+        let password = document.getElementById("password");
+        let cpassword = document.getElementById("cpassword");
+        let email = document.getElementById("email");
+
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+            Userinformation()
+
+        })
+        function Userinformation() {
+            let usernameVal = username.value.trim()
+            let passwordVal = password.value.trim()
+            let cpasswordVal = cpassword.value.trim()
+            let emailVal = email.value.trim()
+
+            if (usernameVal === '') {
+                errordisplay(username, 'Enter a username')
+            }
+            else {
+                successdisplay(username)
+            }
+            //password
+            if (passwordVal === '') {
+                errordisplay(password, 'password is required')
+            }
+            else if (passwordVal.length < 8) {
+                errordisplay(password, 'password must have minimum 8 characters')
+            }
+            else {
+                successdisplay(password)
+            }
+            //confirm password
+            if (cpasswordVal === '') {
+                errordisplay(cpassword, 'Enter a confirm password please ')
+            }
+            else if (cpasswordVal.length < 8) {
+                errordisplay(cpassword, 'password must have minimum 8 characters')
+            }
+            else {
+                successdisplay(cpassword)
+            }
+
+
+            // Email
+            if (emailVal === "") {
+                errordisplay(email, "Email is required");
+            } else if (!validateEmail(emailVal)) {
+                errordisplay(email, "Invalid email format");
+            } else {
+                successdisplay(email);
+            }
+
+
+        }
+
+        function errordisplay(element, message) {
+            const itm = element.parentElement
+            const errorele = itm.querySelector('.error')
+            errorele.innerText = message;
+
+            itm.classList.add('error');
+            itm.classList.remove('success');
+
+        }
+        function successdisplay(element) {
+            const itm = element.parentElement
+            const errorele = itm.querySelector('.error')
+
+
+            itm.classList.add('success')
+            itm.classList.remove('error');
+        }
+        function validateEmail(email) {
+            // Simple email pattern
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+    </script>
+
+    <!-- <script>
+        let userform = document.querySelector(".form")
+        let userval = document.querySelector("#name")
+        let passval = document.querySelector("#password")
+        let cpassval = document.querySelector("#cpassword")
+        let emailval = document.querySelector("#email")
+
+        userform.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            if (UserData()) {
+                userform.submit();
+            }
+        })
+
+        function UserData() {
+            let user = userval.value.trim()
+            let password = passval.value.trim()
+            let cpassword = cpassval.value.trim()
+            let email = emailval.value.trim()
+
+            //Username
+
+            if (user === '') {
+                displayerror(userval, 'Enter a Username')
+            }
+            else {
+                displaysuccess(userval)
+            }
+
+            //password
+
+            if (password === '') {
+                displayerror(passval, 'Enter a password')
+            }
+            else if (password.length < 8) {
+                displayerror(passval, 'Enter a valid password')
+            }
+            else {
+                displaysuccess(passval)
+            }
+
+
+
+            // Confirm password
+            if (cpassword === '') {
+                displayerror(cpassval, 'Enter a password')
+            } else if (cpassword.length < 8) {
+                displayerror(cpassval, 'Enter a valid password')
+            } else if (cpassword !== password) {
+                displayerror(cpassval, 'Passwords do not match')
+            } else {
+                displaysuccess(cpassval)
+            }
+
+
+
+            //email
+            if (email === '') {
+                displayerror(emailval, 'Enter an email')
+            }
+            else if (!validateEmail(email)) {
+                displayerror(emailval, "Invalid email format");
+            } else {
+                displaysuccess(emailval);
+            }
+
+
+        }
+
+        function displayerror(element, message) {
+            const itm = element.parentElement
+            const Errorval = itm.querySelector('.error')
+            Errorval.innerText = message;
+
+            itm.classList.add('error')
+            itm.classList.remove('success')
+        }
+
+        function displaysuccess(element) {
+            const val = element.parentElement;
+            const errorVal = val.querySelector('.error');
+            if (errorVal) errorVal.innerText = '';
+
+            val.classList.add('success');
+            val.classList.remove('error');
+        }
+
+
+        function validateEmail(email) {
+            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return pattern.test(email);
+        }
+    </script>
+
+</body> -->
+
+</html>

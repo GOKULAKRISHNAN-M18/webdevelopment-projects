@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .todo-container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #aaa;
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            padding: 10px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li:hover {
+            background: #eee;
+        }
+
+        .delete {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+    <div class="container">
+        <h2>To-Do list</h2>
+        <input type="text" id="Todo-text" placeholder="enter a Task">
+        <ul id="task-list"></ul>
+    </div>
+    <!-------To-Do script------------>
+   <script>
+    const textbar = document.getElementById('Todo-text');
+    const list = document.getElementById('task-list');
+
+    // Corrected 'taskbar' to 'textbar'
+    textbar.addEventListener("keypress", function (e) {
+        if (e.key === "Enter" && textbar.value.trim() !== "") {
+            addTask(textbar.value.trim());
+            textbar.value = "";
+        }
+    });
+
+    function addTask(taskText) {
+        const li = document.createElement("li");
+        li.textContent = taskText;
+
+        const deleteBtn = document.createElement("span");
+        deleteBtn.textContent = ' X';
+        deleteBtn.classList.add('delete');
+
+        deleteBtn.onclick = function () {
+            list.removeChild(li);
+        };
+
+        li.appendChild(deleteBtn);
+        list.appendChild(li);
+    }
+</script>
+
+</body>
+
+</html>

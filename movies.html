@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 25vh;
+    }
+
+    .overall h2 {
+        font-size: 30px;
+        padding: 5px;
+    }
+
+    input {
+        width: 300px;
+        height: 33px;
+        outline: none;
+        border-radius: 4px;
+        gap: 4px;
+    }
+
+    button {
+        padding: 10px;
+        cursor: pointer;
+        background-color: red;
+        outline: none;
+        border: none;
+        border-radius: 3px;
+    }
+
+    #result {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+
+
+    .movies {
+        background: #111;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .movies img {
+        width: 100%;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="overall">
+            <h2>World Movies.Co</h2>
+            <input type="text" id="MoviesText" placeholder="Enter a movie">
+            <button id="btn">Search</button>
+
+        </div>
+    </div>
+    <div class="result" id="result">
+
+    </div>
+</body>
+
+<!-- <script>
+    //Create a document
+    let text = document.getElementById("MoviesText");
+    let button = document.getElementById("btn");
+    let output = document.getElementById("result")
+    let apiKey = "49c377f6";
+
+    //Addeventlistener
+
+    text.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            fetchMovies();
+        }
+    });
+
+
+    //create a Async function 
+    async function fetchMovies() {
+        const trval = text.value.trim();
+
+
+        if (!trval) {
+            output.innerHTML = `<p>Enter a Movie Please</p>`;
+            return;
+        }
+        let url = `https://www.omdbapi.com/?apikey=${apiKey}&s=${trval}`;
+
+        try {
+            let response = await fetch(url);
+            let data = await response.json();
+            if (data.Response === 'True') {
+                displayMovie(data.Search)
+            } else {
+                output.innerHTML = `<p>${data.Error}</p>`
+            }
+        }
+        catch (error) {
+            output.innerHTML = `<p>Something went wrong. Try again later.</p>`;
+        }
+    }
+
+    function displayMovie(movies) {
+        output.innerHTML = movies.map(movie => {
+            return `<div class="movie">
+             <img src="${movie.Poster !== "N/A" ? movie.Poster : 'https://via.placeholder.com/200'}" alt="${movie.Title}">
+          <h3>${movie.Title}</h3>
+          <h3>${movie.Year}</h3>
+          <h4>${movie.Type}</h4>
+            </div>`;
+        }).join("")
+    }
+</script> -->
+<!-- <script>
+    //Create a Document 
+    let textmovie = document.getElementById("MoviesText");
+    let buttoN = document.getElementById("btn");
+    let OP = document.getElementById("result");
+    let api = "49c377f6";
+
+    //create a function for enter key
+
+    textmovie.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            fetchmovies();
+        }
+    });
+
+    async function fetchmovies() {
+        let updatetext = textmovie.value.trim()
+
+        if (!updatetext) {
+            OP.innerHTML = `<p>Enter the movie name </p>`
+            return;
+        }
+        let urls = `https://www.omdbapi.com/?apikey=${api}&s=${updatetext}`;
+        try {
+            let response = await fetch(urls)
+            let data = await response.json();
+
+            if (data.Response === 'True') {
+                displaymovie(data.Search)
+            }
+            else {
+                OP.innerHTML = `<p>${data.Error}</p>`
+            }
+        }
+        catch (error) {
+            OP.innerHTML = `<p>Something went wrong. Try again later.</p>`;
+        }
+    }
+    function displaymovie(movie) {
+        OP.innerHTML = movie.map(movies => {
+            return `<div class="movies">
+                <img src="${movies.Poster !== "N/A" ? movies.Poster : 'https://via.placeholder.com/200'}" alt="${movies.Title}">
+                <h3>${movies.Title}</h3>
+                <h2>${movies.Year}</h2>
+                <h2>${movies.Type}</h2> </div>`;
+        }).join('')
+    } -->
+</script>
+
+<script>
+    //Create a document 
+
+    let Txt = document.getElementById("MoviesText")
+    let btns = document.getElementById("btn")
+    let OutPut = document.getElementById("result")
+    let apiKey = "49c377f6";
+
+    Txt.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            fetchmovie();
+        }
+    });
+    async function fetchmovie() {
+        let upd = Txt.value.trim()
+
+        if (!upd) {
+            OutPut.innerHTML = `<p>Enter a Movie Name please</p>`
+            return;
+        }
+        const url = `https://www.omdbapi.com/?apikey=${apiKey}&s=${upd}`;
+
+        try {
+            let response = await fetch(url);
+            let data = await response.json();
+
+            if (data.Response === 'True') {
+                displaymovie(data.Search)
+            }
+            else {
+                OutPut.innerHTML = `<p>No movie found </p>`
+
+            }
+        }
+        catch (error) {
+            OutPut.innerHTML = `<p>${data.Error}</p>`
+        }
+    }
+    function displaymovie(movies) {
+        let html = movies.map(movie => {
+            return `<div class="movies">
+                 <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150'}" alt="${movie.Title} Poster" width="150">
+            <h2>${movie.Title}</h2>
+            <h3>Year: ${movie.Year}</h3>
+            <h3>Type: ${movie.Type}</h3>
+           
+        </div>`;
+        }).join('');
+
+        OutPut.innerHTML = html;
+    }
+
+</script>
+
+</html>

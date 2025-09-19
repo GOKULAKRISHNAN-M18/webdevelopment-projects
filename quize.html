@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background: #833AB4;
+        background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+
+    #Quize {
+        background-color: aliceblue;
+        width: 600px;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    #ques {
+        font-weight: 600;
+        padding: 5px;
+        font-size: 20px;
+    }
+
+    .rat {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .rat label {
+        padding: 3px;
+    }
+
+    #btn {
+        margin-top: 5px;
+        margin-left: 20px;
+        font-size: 14px;
+        font-family: sans-serif;
+        font-weight: 500;
+        width: 70px;
+        height: 30px;
+        color: white;
+        background-color: rgb(52, 204, 52);
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+</style>
+
+<body>
+    <div class="container">
+       
+        <div id="Quize">
+
+            <div id="ques">Loading....</div>
+            <div class="rat">
+                <label for=""><input type="radio" name="answer" value="a"><span id="a_text"></span></label>
+                <label for=""><input type="radio" name="answer" value="b"><span id="b_text"></span></label>
+                <label for=""><input type="radio" name="answer" value="c"><span id="c_text"></span></label>
+                <label for=""><input type="radio" name="answer" value="d"><span id="d_text"></span></label>
+            </div>
+            <button id="btn">Submit</button>
+            <div id="result" style="margin-top: 10px; margin-left: 10px;color: red;"></div>
+        </div>
+
+
+    </div>
+</body>
+<script>
+    //Create an object 
+    let QuizeData = [
+        {
+            "Question": "1.புதுக்கோட்டை மாவட்டம் எந்த ஆண்டு உருவாக்கப்பட்டது?",
+            "a": "1947",
+            "b": "1950",
+            "c": "1974",
+            "d": "1985",
+            "correct": "c"
+
+        },
+        {
+            Question: '2.காவிரி நதி எந்த மாநிலத்தில் உற்பத்தி ஆகிறது?',
+            a: 'கருநாடகம்',
+            b: 'கேரளா',
+            c: 'தமிழ்நாடு',
+            d: 'புதுச்சேரி',
+
+            correct: 'a'
+        },
+        {
+            "Question": "3.தமிழ்நாட்டின் தலைநகர் எது?",
+            "a": "மதுரை",
+            "b": "திருச்சி",
+            "c": "சென்னை",
+            "d": "கோயம்புத்தூர்",
+            "correct": "c",
+        },
+        {
+            "Question": "4.முதலாம் தமிழ்நாடு முதலமைச்சர் யார்?",
+            "a": "எம். கருணாநிதி",
+            "b": "காமராஜர்",
+            "c": "சி. ராஜகோபாலாச்சாரி",
+            "d": "அ. அண்ணாதுரை",
+            "correct": "c",
+        },
+        {
+            "Question": "5.அரசர்குளம் கிராமம் எந்த மாவட்டத்தில் உள்ளது?",
+            "a": "திருச்சி",
+            "b": "தஞ்சாவூர்",
+            "c": "புதுக்கோட்டை",
+            "d": "மதுரை",
+            "correct": "c",
+        },
+        {
+            "Question": "6.அரசர்குளம் கிராமத்தின் அருகில் ஓடும் சிறிய நதி அல்லது வாய்க்கால் எது?",
+            "a": "வெண்ணாறு",
+            "b": "அரிசிலாறு",
+            "c": "அகண்ட வைகை",
+            "d": "கிருஷ்ணா நதி",
+            "correct": "b"
+        },
+        {
+            "Question": "7.புதுக்கோட்டை மாவட்டத்தில் அரசர்குளம் கிராமம் எவ்வகை ஆட்சி அமைப்பில் உள்ளது?",
+            "a": "மாநகராட்சி",
+            "b": "புரட்டி மன்றம்",
+            "c": "பஞ்சாயத்து",
+            "d": "மாவட்ட ஆட்சி",
+            "correct": "c"
+        },
+        {
+            "Question": "8.அரசர்குளம் Then மற்றும் Keel பகுதிகள் எத்தனை சதுர கிலோமீட்டர் பரப்பளவைக் கொண்டுள்ளன?",
+            "a": "15 சதுர கிலோமீட்டர்",
+            "b": "20 சதுர கிலோமீட்டர்",
+            "c": "12 சதுர கிலோமீட்டர்",
+            "d": "8 சதுர கிலோமீட்டர்",
+            "correct": "c"
+        },
+        {
+            "Question": "9.அரசர்குளம் Then மற்றும் Keel பகுதியில் நடைபெறும் முக்கிய திருவிழா எது?",
+            "a": "கும்பாபிஷேகம்",
+            "b": "ஊர்தி திருவிழா",
+            "c": "தைப்பூசம்",
+            "d": "பொங்கல் விழா",
+            "correct": "b"
+        },
+        {
+            "Question": "10.அரசர்குளம் கிராமம் எந்த மாவட்டத்தின் பாகமாகும்?",
+            "a": "திருச்சி",
+            "b": "புதுக்கோட்டை",
+            "c": "மதுரை",
+            "d": "தஞ்சாவூர்",
+            "correct": "b"
+        },
+    ]
+
+    //Start in scratch
+
+    let CurrentQuize = 0;
+    let score = 0;
+
+    //Get element by id
+
+    let quiz = document.getElementById("Quize")
+    let Questions = document.getElementById('ques')
+    let a = document.getElementById('a_text')
+    let b = document.getElementById('b_text')
+    let c = document.getElementById('c_text')
+    let d = document.getElementById('d_text')
+    let button = document.getElementById('btn')
+    let op = document.getElementById('result')
+
+    function displayList() {
+
+        const display = QuizeData[CurrentQuize];
+
+        Questions.textContent = display.Question
+        a.textContent = display.a
+        b.textContent = display.b
+        c.textContent = display.c
+        d.textContent = display.d
+    }
+    function SelectOption() {
+        let answers = document.getElementsByName('answer')
+        let select = null;
+
+        answers.forEach(answer => {
+            if (answer.checked) {
+                select = answer.value
+            }
+        })
+        return select;
+
+
+    }
+    function deselect() {
+        let answers = document.getElementsByName('answer');
+        answers.forEach(answer => {
+            answer.checked = false;
+        })
+    }
+
+    //onclick and do the action 
+    button.addEventListener('click', () => {
+        const Implement = SelectOption()
+        if (!Implement) {
+            op.textContent = "*Please enter an option."
+            return;
+        }
+        if (Implement.trim() === QuizeData[CurrentQuize].correct.trim()) {
+            score++;
+
+        }
+        CurrentQuize++
+        if (CurrentQuize < QuizeData.length) {
+            displayList();
+            deselect();
+        }
+
+        else {
+            document.getElementById("Quize").innerHTML = `<h2>உங்கள் மதிப்பெண்: ${QuizeData.length} க்கு ${score} <br> நன்றி...</h2>
+              <button onclick="location.reload()"style="padding: 10px; font-size: 18px; width: 150px; height: 50px; cursor: pointer; background-color: rgb(52, 204, 52);outline: none;
+        border: none;border-radius: 3px;">Restart Quiz</button>`;
+
+        }
+    });
+
+    displayList()
+
+</script>
+
+</html>

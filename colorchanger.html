@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0%;
+        padding: 0%;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+        transition: background-color 3s ease;
+    }
+
+    h1 {
+        font-size: 39px;
+        padding: 10px;
+    }
+
+    #color {
+        font-size: 30px;
+        padding: 20px;
+    }
+
+    button {
+        width: 100px;
+        height: 25px;
+        background-color: antiquewhite;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: beige;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Background Color Creator</h1>
+        <div id="color">#FFF</div>
+        <button onclick="Colorchanger()">Change color</button>
+    </div>
+</body>
+<script>
+    //Create a ID for a Document
+    let clr = document.getElementById("color")
+    function hexacolorz() {
+        const hex = Math.floor(Math.random() * 0xffffff).toString(16);
+        return "#" + hex.padStart(6, '0');
+    }
+    function Colorchanger(){
+        let nclr = hexacolorz();
+        document.body.style.backgroundColor=nclr
+        clr.textContent=nclr
+    }
+</script>
+
+</html>
