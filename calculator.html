@@ -1,0 +1,86 @@
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Callback Calculator</title>
+</head>
+
+<body>
+  <h2>Callback Calculator</h2>
+
+  <input type="number" id="num1" placeholder="Enter first number" />
+  <input type="number" id="num2" placeholder="Enter second number" />
+
+  <select id="operation">
+
+    <option value="add">Add</option>
+    <option value="subtract">Subtract</option>
+    <option value="multiply">Multiply</option>
+    <option value="divide">Divide</option>
+
+  </select>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <h3 id="result">Result: </h3>
+
+
+  <!--------JavaScript code----------->
+  <script>
+    //Define the operations of callback function
+
+    function add(a, b) {
+      return a + b;
+    }
+
+    function subtract(a, b) {
+      return a - b;
+    }
+    function divide(a, b) {
+      if (b === 0)
+        return 'Cannot divided by zero';
+      return a / b;
+
+    }
+    function multiply(a, b) {
+      return a * b;
+    }
+
+    //Call all the function and store the variable
+
+    function calloperation(num1, num2, CallBack){
+      return CallBack(num1, num2)
+    }
+
+    //when the buuton is clicked
+
+    function calculate() {
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const operation = document.getElementById('operation').value;
+
+      let result;
+
+      switch (operation) {
+
+        case "add": result = calloperation(num1, num2, add); break;
+
+        case "subtract": result = calloperation(num1, num2, subtract); break;
+
+        case "multiply": result = calloperation(num1, num2, multiply); break;
+
+        case "divide": result = calloperation(num1, num2, divide); break;
+
+        default: result = "Invalid value"
+
+      }
+
+      document.getElementById('result').innerText = "Result: " + result;
+
+    }
+
+  </script>
+</body>
+
+</html>
